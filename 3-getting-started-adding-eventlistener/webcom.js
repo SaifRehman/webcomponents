@@ -3,8 +3,14 @@ class Myweb extends HTMLElement {
     constructor(){
         super();
         this.tooltipcontainer;
+        this.tooltiptext;
     }
     connectedCallback(){
+        this.tooltiptext = 'dummy'
+        if(this.hasAttribute('text'))
+        {
+            this.tooltiptext = this.getAttribute('text')
+        }
         const tooltip = document.createElement('span')
         tooltip.textContent = '(?)'
         tooltip.addEventListener('mouseenter', this._mouseenter.bind(this))
@@ -13,7 +19,7 @@ class Myweb extends HTMLElement {
     }
     _mouseenter(){
         this.tooltipcontainer = document.createElement('div')
-        this.tooltipcontainer.textContent = 'hovered over '
+        this.tooltipcontainer.textContent = this.tooltiptext 
         this.appendChild(this.tooltipcontainer);
     }
     _mouseleave(){
